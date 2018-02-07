@@ -13,6 +13,9 @@ let ui = {
     robotDiagram: {
         arm: document.getElementById('robot-arm')
     },
+    forwardCommand: {
+        button: document.getElementById('move-forward-button')
+    },
     example: {
         button: document.getElementById('example-button'),
         readout: document.getElementById('example-readout').firstChild
@@ -50,6 +53,19 @@ NetworkTables.addKeyListener('/SmartDashboard/arm/encoder', (key, value) => {
     ui.robotDiagram.arm.style.transform = `rotate(${armAngle}deg)`;
 });
 
+NetworkTables.addKeyListener('/SmartDashboard/forwardCommand', (key, value) => {
+    if (value == 'true') {
+        value = true;
+    } else if (value == 'false') {
+        value = false;
+    }
+    if(value) {
+        ui.forwardCommand.button.className = 'active';
+    } else {
+        ui.fowardCommand.button.className = '';
+    }
+});
+
 // This button is just an example of triggering an event on the robot by clicking a button.
 NetworkTables.addKeyListener('/SmartDashboard/example_variable', (key, value) => {
     // Set class active if value is true and unset it if it is false
@@ -83,6 +99,13 @@ NetworkTables.addKeyListener('/SmartDashboard/autonomous/modes', (key, value) =>
 NetworkTables.addKeyListener('/SmartDashboard/autonomous/selected', (key, value) => {
     ui.autoSelect.value = value;
 });
+
+ui.forwardCommand.button.onclick = function() {
+    var nodeConsole = require('console');
+    var myConsole = new nodeConsole.Console(process.stdout, process.stderr);
+    myConsole.log('forward command pressed!\n');
+    NetworkTables.putValue('/SmartDashboard/forwardCommand', true);
+}
 
 // The rest of the doc is listeners for UI elements being clicked on
 ui.example.button.onclick = function() {

@@ -18,9 +18,6 @@ class RespondToController(Command):
 
         self.timer = Timer()
 
-        self.right_bumper_last = False
-        self.left_bumper_last = False
-
     def initialize(self):
         self.timer.start()
 
