@@ -25,93 +25,85 @@ let ui = {
 };
 
 // Key Listeners
+// NetworkTables.addRobotConnectionListener(onRobotConnection, true);
+// Sets function to be called when any NetworkTables key/value changes
+NetworkTables.addGlobalListener(onValueChanged, true);
 
-// Gyro rotation
-let updateGyro = (key, value) => {
-    ui.gyro.val = value;
-    ui.gyro.visualVal = Math.floor(ui.gyro.val - ui.gyro.offset);
-    if (ui.gyro.visualVal < 0) {
-        ui.gyro.visualVal += 360;
-    }
-    ui.gyro.arm.style.transform = `rotate(${ui.gyro.visualVal}deg)`;
-    ui.gyro.number.innerHTML = ui.gyro.visualVal + 'º';
-};
-NetworkTables.addKeyListener('/SmartDashboard/drive/navx/yaw', updateGyro);
-
-// The following case is an example, for a robot with an arm at the front.
-NetworkTables.addKeyListener('/SmartDashboard/arm/encoder', (key, value) => {
-    // 0 is all the way back, 1200 is 45 degrees forward. We don't want it going past that.
-    if (value > 1140) {
-        value = 1140;
-    }
-    else if (value < 0) {
-        value = 0;
-    }
-    // Calculate visual rotation of arm
-    var armAngle = value * 3 / 20 - 45;
-    // Rotate the arm in diagram to match real arm
-    ui.robotDiagram.arm.style.transform = `rotate(${armAngle}deg)`;
-});
-
-NetworkTables.addKeyListener('/SmartDashboard/forwardCommand', (key, value) => {
+function onValueChanged(key, value, isNew) {
+    // Sometimes, NetworkTables will pass booleans as strings. This corrects for that.
     if (value == 'true') {
         value = true;
     } else if (value == 'false') {
         value = false;
     }
-    if(value) {
-        ui.forwardCommand.button.className = 'active';
-    } else {
-        ui.fowardCommand.button.className = '';
+
+    // This switch statement chooses which UI element to update when a NetworkTables variable changes.
+    switch (key) {
+
+        case '/SmartDashboard/drive/navx/yaw':
+            ui.gyro.val = value;
+            ui.gyro.visualVal = Math.floor(ui.gyro.val - ui.gyro.offset);
+            if (ui.gyro.visualVal < 0) {
+                ui.gyro.visualVal += 360;
+            }
+            ui.gyro.arm.style.transform = `rotate(${ui.gyro.visualVal}deg)`;
+            ui.gyro.number.innerHTML = ui.gyro.visualVal + 'º';
+            break;
+
+        case '/SmartDashboard/arm/encoder':
+            // 0 is all the way back, 1200 is 45 degrees forward. We don't want it going past that.
+            if (value > 1140) {
+                value = 1140;
+            }
+            else if (value < 0) {
+                value = 0;
+            }
+            // Calculate visual rotation of arm
+            var armAngle = value * 3 / 20 - 45;
+            // Rotate the arm in diagram to match real arm
+            ui.robotDiagram.arm.style.transform = `rotate(${armAngle}deg)`;
+            break;
+
+        case '/SmartDashboard/forwardCommand':
+            if(value) {
+                ui.forwardCommand.button.className = 'active';
+            } else {
+                ui.fowardCommand.button.className = '';
+            }
+            break;
+
+        case '/SmartDashboard/example_variable':
+            ui.example.button.classList.toggle('active', value);
+            ui.example.readout.data = 'Value is ' + value;
+            break;
+
+        case '/robot/time':
+            // This is an example of how a dashboard could display the remaining time in a match.
+            // We assume here that value is an integer representing the number of seconds left.
+            ui.timer.innerHTML = value < 0 ? '0:00' : Math.floor(value / 60) + ':' + (value % 60 < 10 ? '0' : '') + value % 60;
+            break;
+
+        case '/SmartDashboard/autonomous/modes':
+            // Clear previous list
+            while (ui.autoSelect.firstChild) {
+                ui.autoSelect.removeChild(ui.autoSelect.firstChild);
+            }
+            // Make an option for each autonomous mode and put it in the selector
+            for (let i = 0; i < value.length; i++) {
+                var option = document.createElement('option');
+                option.appendChild(document.createTextNode(value[i]));
+                ui.autoSelect.appendChild(option);
+            }
+            // Set value to the already-selected mode. If there is none, nothing will happen.
+            ui.autoSelect.value = NetworkTables.getValue('/SmartDashboard/currentlySelectedMode');
+            break;
+
+        case '/SmartDashboard/autonomous/selected':
+            ui.autoSelect.value = value;
+            break;
     }
-});
-
-// This button is just an example of triggering an event on the robot by clicking a button.
-NetworkTables.addKeyListener('/SmartDashboard/example_variable', (key, value) => {
-    // Set class active if value is true and unset it if it is false
-    ui.example.button.classList.toggle('active', value);
-    ui.example.readout.data = 'Value is ' + value;
-});
-
-NetworkTables.addKeyListener('/robot/time', (key, value) => {
-    // This is an example of how a dashboard could display the remaining time in a match.
-    // We assume here that value is an integer representing the number of seconds left.
-    ui.timer.innerHTML = value < 0 ? '0:00' : Math.floor(value / 60) + ':' + (value % 60 < 10 ? '0' : '') + value % 60;
-});
-
-// Load list of prewritten autonomous modes
-NetworkTables.addKeyListener('/SmartDashboard/autonomous/modes', (key, value) => {
-    // Clear previous list
-    while (ui.autoSelect.firstChild) {
-        ui.autoSelect.removeChild(ui.autoSelect.firstChild);
-    }
-    // Make an option for each autonomous mode and put it in the selector
-    for (let i = 0; i < value.length; i++) {
-        var option = document.createElement('option');
-        option.appendChild(document.createTextNode(value[i]));
-        ui.autoSelect.appendChild(option);
-    }
-    // Set value to the already-selected mode. If there is none, nothing will happen.
-    ui.autoSelect.value = NetworkTables.getValue('/SmartDashboard/currentlySelectedMode');
-});
-
-// Load list of prewritten autonomous modes
-NetworkTables.addKeyListener('/SmartDashboard/autonomous/selected', (key, value) => {
-    ui.autoSelect.value = value;
-});
-
-ui.forwardCommand.button.onclick = function() {
-    var nodeConsole = require('console');
-    var myConsole = new nodeConsole.Console(process.stdout, process.stderr);
-    myConsole.log('forward command pressed!\n');
-    NetworkTables.putValue('/SmartDashboard/forwardCommand', true);
 }
 
-// The rest of the doc is listeners for UI elements being clicked on
-ui.example.button.onclick = function() {
-    // Set NetworkTables values to the opposite of whether button has active class.
-    NetworkTables.putValue('/SmartDashboard/example_variable', this.className != 'active');
-};
 // Reset gyro value to 0 on click
 ui.gyro.container.onclick = function() {
     // Store previous gyro val, will now be subtracted from val for callibration
