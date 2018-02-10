@@ -35,12 +35,13 @@ class FollowJoystick(Command):
  
             # rectified arcade drive
 
-            left_power = oi.left_joystick.getRawAxis(robotmap.left_joystick.forwardAxis) * 0.75
-            right_power = oi.right_joystick.getRawAxis(robotmap.right_joystick.forwardAxis) * 0.75
+            left_power = oi.joystick.getRawAxis(robotmap.joystick.left_y_axis) * 0.75
+            right_power = oi.joystick.getRawAxis(robotmap.joystick.right_y_axis) * 0.75
 
-            ## TODO: make this display live in 
+            ## TODO: make this display live in the dashboard
 
             self.drive.tankDrive(left_power, right_power)
 
     def end(self):
-        subsystems.motors.robot_drive.setLeftRightMotorOutputs(0, 0)
+        self.drive.tankDrive(0.0, 0.0)
+        #subsystems.motors.robot_drive.setLeftRightMotorOutputs(0, 0)
