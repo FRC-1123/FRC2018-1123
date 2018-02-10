@@ -11,7 +11,7 @@ class TurnRightInPlace(Command):
     def __init__(self, power, time):
         super().__init__('Turning right in place at %f for %0.2fs' % (power, time))
 
-        self.requires(subsystems.motors)
+        self.requires(subsystems.drivetrain)
         self.power = power
         self.time_length = time
         self.timer = wpilib.Timer()
@@ -20,11 +20,11 @@ class TurnRightInPlace(Command):
         self.timer.start()
 
     def execute(self):
-        subsystems.motors.drive.tankDrive(self.power, -self.power)
+        subsystems.drivetrain.drive.tankDrive(self.power, -self.power)
         self.timer.delay(0.05)
 
     def isFinished(self):
         return self.timer.hasPeriodPassed(self.time_length)
 
     def end(self):
-        subsystems.motors.drive.tankDrive(0.0, 0.0)
+        subsystems.drivetrain.drive.tankDrive(0.0, 0.0)

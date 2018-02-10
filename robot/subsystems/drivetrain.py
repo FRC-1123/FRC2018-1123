@@ -17,10 +17,10 @@ class DriveTrain(Subsystem):
     def __init__(self):
         super().__init__("DriveTrain")
 
-        self.left_front_motor = Talon(robotmap.motors.left_front_id)
-        self.left_back_motor = Talon(robotmap.motors.left_back_id)
-        self.right_front_motor = Talon(robotmap.motors.right_front_id)
-        self.right_back_motor = Talon(robotmap.motors.right_back_id)
+        self.left_front_motor = Talon(robotmap.drivetrain.left_front_id)
+        self.left_back_motor = Talon(robotmap.drivetrain.left_back_id)
+        self.right_front_motor = Talon(robotmap.drivetrain.right_front_id)
+        self.right_back_motor = Talon(robotmap.drivetrain.right_back_id)
 
         self.left_front_motor.setInverted(False)
         self.left_back_motor.setInverted(False)

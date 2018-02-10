@@ -15,9 +15,9 @@ class FollowJoystick(Command):
     def __init__(self):
         super().__init__('Follow Joystick')
 
-        self.requires(subsystems.motors)
+        self.requires(subsystems.drivetrain)
 
-        self.drive = subsystems.motors.drive
+        self.drive = subsystems.drivetrain.drive
 
         self.sd = NetworkTables.getTable("SmartDashboard")
 
@@ -25,15 +25,7 @@ class FollowJoystick(Command):
         self.timer.start()
 
     def execute(self):
-        if self.timer.hasPeriodPassed(0.05):  # period of 0.05 seconds
-            # tank drive
-            # subsystems.motors.robot_drive.tankDrive(oi.joystick, robotmap.joystick.left_port, oi.joystick,
-            #                                         robotmap.joystick.right_port, True)
-
-            # arcade drive
-            # subsystems.motors.robot_drive.arcadeDrive(oi.joystick)
- 
-            # rectified arcade drive
+        if self.timer.hasPeriodPassed(0.05):
 
             left_power = oi.joystick.getRawAxis(robotmap.joystick.left_y_axis) * 0.75
             right_power = oi.joystick.getRawAxis(robotmap.joystick.right_y_axis) * 0.75
@@ -44,4 +36,4 @@ class FollowJoystick(Command):
 
     def end(self):
         self.drive.tankDrive(0.0, 0.0)
-        #subsystems.motors.robot_drive.setLeftRightMotorOutputs(0, 0)
+        #subsystems.drivetrain.robot_drive.setLeftRightMotorOutputs(0, 0)
