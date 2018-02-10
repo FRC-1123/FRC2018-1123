@@ -14,11 +14,13 @@ motors.right_back_id = 3
 
 cameras = PropertySet()
 
-left_joystick = PropertySet()
-left_joystick.port = 0
+joystick = PropertySet()
+joystick.left_x_axis = 0
+joystick.left_y_axis = 1
+joystick.right_x_axis = 4
+joystick.right_y_axis = 5
 
-right_joystick = PropertySet()
-right_joystick.port = 1
-
-xbox_controller = PropertySet()
-xbox_controller.port = 2
+controller = PropertySet()
+controller.port = 0
+controller.joystick = joystick
+# redundant reference, but makes it a little more clear
