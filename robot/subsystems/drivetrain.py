@@ -1,0 +1,33 @@
+import ctre
+import wpilib
+from networktables import NetworkTables
+from wpilib.command.subsystem import Subsystem
+from ctre.wpi_talonsrx import WPI_TalonSRX as Talon
+from wpilib.drive import DifferentialDrive
+
+import robotmap
+
+class DriveTrain(Subsystem):
+    """
+    This subsystem will control the drive train.
+    The robot uses a tank drive setup, with 4 Independent CIMs, although the two right motors and two left motors
+    will always be moving together.
+    """
+
+    def __init__(self):
+        super().__init__("DriveTrain")
+
+        self.left_front_motor = Talon(robotmap.motors.left_front_id)
+        self.left_back_motor = Talon(robotmap.motors.left_back_id)
+        self.right_front_motor = Talon(robotmap.motors.right_front_id)
+        self.right_back_motor = Talon(robotmap.motors.right_back_id)
+
+        self.left_front_motor.setInverted(False)
+        self.left_back_motor.setInverted(False)
+        self.right_front_motor.setInverted(True)
+        self.right_back_motor.setInverted(True)
+
+        self.left_controller_group = wpilib.SpeedControllerGroup(left_front_motor, left_back_motor)
+        self.right_controller_group = wpilib.SpeedControllerGroup(right_front_motor, right_back_motor)
+
+        self.drive = DifferentialDrive(self.left_controller_group, self.right_controller_group)
