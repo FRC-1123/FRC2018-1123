@@ -1,9 +1,17 @@
 
-class PropertySet():
+class PropertySet:
     """
     Dummy class to store properties for an object.
     """
     pass
+
+class Buttons:
+	"""
+	Enum for making controller bindings easier
+	"""
+	A, B, Y, X = range(4)
+	# Note, these do not correspond to the actual button ids on the controller
+
 
 ## PLACEHOLDER VALUES
 drivetrain = PropertySet()
@@ -27,4 +35,10 @@ joystick.right_y_axis = 5
 controller = PropertySet()
 controller.port = 0
 controller.joystick = joystick
+
+controller_bindings = PropertySet()
+controller_bindings.intake_in = Buttons.A
+controller_bindings.intake_out = Buttons.B
+controller_bindings.lift_raise = Buttons.X
+controller_bindings.lift_lower = Buttons.Y
 # redundant reference, but makes it a little more clear
