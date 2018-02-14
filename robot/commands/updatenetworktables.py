@@ -6,8 +6,8 @@ import subsystems
 
 class UpdateNetworkTables(Command):
 
-	def __init__(self):
-		super().__init__("Update NetworkTables")
+    def __init__(self):
+        super().__init__("Update NetworkTables")
 
         self.sd = NetworkTables.getTable("SmartDashboard")
         self.nt_timer = wpilib.Timer()  # timer for updating NetworkTables

@@ -1,5 +1,4 @@
 from networktables import NetworkTables
-from wpilib import GenericHID
 from wpilib.command import Command
 from wpilib.timer import Timer
 
@@ -27,10 +26,10 @@ class RespondToController(Command):
     def execute(self):
         if self.timer.hasPeriodPassed(0.05):
             is_pressed = {}
-            is_pressed[robotmap.Buttons.A] = oi.getAButton()
-            is_pressed[robotmap.Buttons.B] = oi.getBButton()
-            is_pressed[robotmap.Buttons.X] = oi.getXButton()
-            is_pressed[robotmap.Buttons.Y] = oi.getYButton()
+            is_pressed[robotmap.Buttons.A] = oi.controller.getAButton()
+            is_pressed[robotmap.Buttons.B] = oi.controller.getBButton()
+            is_pressed[robotmap.Buttons.X] = oi.controller.getXButton()
+            is_pressed[robotmap.Buttons.Y] = oi.controller.getYButton()
 
             if is_pressed[robotmap.controller_bindings.lift_raise]:
                 # raise the lift

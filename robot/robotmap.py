@@ -15,22 +15,22 @@ class Buttons:
 
 ## PLACEHOLDER VALUES
 drivetrain = PropertySet()
-drivetrain.left_front_id = 0
-drivetrain.left_back_id = 1
-drivetrain.right_front_id = 2
-drivetrain.right_back_id = 3
+drivetrain.left_front_id = 2
+drivetrain.left_back_id = 4
+drivetrain.right_front_id = 3
+drivetrain.right_back_id = 1
 
 lift_mech = PropertySet()
-lift_mech.motor_a = 4
-lift_mech.motor_b = 5
+lift_mech.motor_a = 5
+lift_mech.motor_b = 6
 
 cameras = PropertySet()
 
 joystick = PropertySet()
 joystick.left_x_axis = 0
 joystick.left_y_axis = 1
-joystick.right_x_axis = 4
-joystick.right_y_axis = 5
+joystick.right_x_axis = 2
+joystick.right_y_axis = 3
 
 controller = PropertySet()
 controller.port = 0

@@ -27,7 +27,7 @@ class DriveTrain(Subsystem):
         self.right_front_motor.setInverted(True)
         self.right_back_motor.setInverted(True)
 
-        self.left_controller_group = wpilib.SpeedControllerGroup(left_front_motor, left_back_motor)
-        self.right_controller_group = wpilib.SpeedControllerGroup(right_front_motor, right_back_motor)
+        self.left_controller_group = wpilib.SpeedControllerGroup(self.left_front_motor, self.left_back_motor)
+        self.right_controller_group = wpilib.SpeedControllerGroup(self.right_front_motor, self.right_back_motor)
 
         self.drive = DifferentialDrive(self.left_controller_group, self.right_controller_group)
