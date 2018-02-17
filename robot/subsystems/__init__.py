@@ -7,10 +7,12 @@ for it in the global scope.
 from wpilib.robotbase import RobotBase
 from .drivetrain import DriveTrain
 from .liftmech import LiftMech
+from .grabber import Grabber
 #subsystemname = None
 
 drivetrain = None
 liftmech = None
+grabber = None
 
 def init():
     """
@@ -21,5 +23,6 @@ def init():
 
     drivetrain = DriveTrain()
     liftmech = LiftMech()
+    grabber = Grabber()
 
     # initialize the subsystems here
