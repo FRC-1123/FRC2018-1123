@@ -98,6 +98,13 @@ text {
     stroke: none;
     fill: white;
 }
+#drivetrain {
+    width: 200px;
+    height: 250px;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+}
 #gyro {
     width: 175px;
     height: 175px;
@@ -116,7 +123,7 @@ text {
 #robot-diagram {
     position: absolute;
     bottom: 1px;
-    right: 1vw;
+    right: 1px;
 }
 #robot-arm {
     -webkit-transform-origin: right;
