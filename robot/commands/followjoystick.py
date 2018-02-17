@@ -34,7 +34,7 @@ class FollowJoystick(Command):
             left_power = oi.joystick.getRawAxis(robotmap.joystick.left_y_axis) * 1.0
             right_power = oi.joystick.getRawAxis(robotmap.joystick.right_y_axis) * 1.0
 			
-            self.logger.info("Joystick should be followed.")
+            #self.logger.info("Joystick should be followed.")
             ## TODO: make this display live in the dashboard
 
             self.drive.tankDrive(left_power, right_power)

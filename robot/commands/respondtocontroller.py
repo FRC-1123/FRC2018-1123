@@ -14,7 +14,7 @@ class RespondToController(Command):
     def __init__(self):
         super().__init__("Respond to Controller")
 
-        #self.requires(subsystems.grabber)
+        self.requires(subsystems.grabber)
         #self.requires(subsystems.liftmech)
 
         #self.sd = NetworkTables.getTable("SmartDashboard")
@@ -44,7 +44,12 @@ class RespondToController(Command):
 
             if is_pressed[robotmap.controller_bindings.intake_in]:
                 # make the intake come in
-                pass
+                subsystems.grabber.set_mode(Grabber.GRABBER_IN)
+
             elif is_pressed[robotmap.controller_bindings.intake_out]:
                 # make the intake go out
-                pass
+                subsystems.grabber.set_mode(Grabber.GRABBER_OUT)
+
+            else:
+                # turn off intake
+                subsystems.grabber.set_mode(Grabber.GRABBER_IDLE)
