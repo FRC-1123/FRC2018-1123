@@ -4,6 +4,7 @@ from wpilib.timer import Timer
 
 from inputs import oi
 import robotmap
+import subsystems
 
 class RespondToController(Command):
     """
@@ -13,13 +14,16 @@ class RespondToController(Command):
     def __init__(self):
         super().__init__("Respond to Controller")
 
+        #self.requires(subsystems.grabber)
+        #self.requires(subsystems.liftmech)
+
         #self.sd = NetworkTables.getTable("SmartDashboard")
         #self.logger = logging.getLogger("robot")
 
         #oi.start_btn.whenPressed(SwitchCamera())
 
         self.timer = Timer()
-
+ 
     def initialize(self):
         self.timer.start()
 

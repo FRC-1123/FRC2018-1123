@@ -21,8 +21,11 @@ drivetrain.right_front_id = 3
 drivetrain.right_back_id = 1
 
 lift_mech = PropertySet()
-lift_mech.motor_a = 5
-lift_mech.motor_b = 6
+lift_mech.motor = 5
+
+intake = PropertySet()
+intake.left_motor = 6
+intake.right_motor = 7
 
 cameras = PropertySet()
 

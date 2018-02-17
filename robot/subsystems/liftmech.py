@@ -17,12 +17,6 @@ class LiftMech(Subsystem):
     def __init_(self):
         super().__init__("LiftMech")
 
-        self.motor_a = Talon(robotmap.lift_mech.motor_a)
-        self.motor_a.setInverted(False)
-
-        self.motor_b = Talon(robotmap.lift_mech.motor_b)
-        self.motor_b.setInverted(True)
-
-    def set(self, power):
-    	self.motor_a.set(power)
-    	self.motor_b.set(power)
+        self.motor = Talon(robotmap.lift_mech.motor)
+        
+        self.motor.setInverted(False)
