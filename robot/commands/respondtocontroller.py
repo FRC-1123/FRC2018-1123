@@ -3,8 +3,10 @@ from wpilib.command import Command
 from wpilib.timer import Timer
 
 from inputs import oi
+import logging
 import robotmap
 import subsystems
+from subsystems.grabber import Grabber
 
 class RespondToController(Command):
     """
@@ -18,7 +20,7 @@ class RespondToController(Command):
         #self.requires(subsystems.liftmech)
 
         #self.sd = NetworkTables.getTable("SmartDashboard")
-        #self.logger = logging.getLogger("robot")
+        self.logger = logging.getLogger("robot")
 
         #oi.start_btn.whenPressed(SwitchCamera())
 
@@ -43,11 +45,13 @@ class RespondToController(Command):
                 pass
 
             if is_pressed[robotmap.controller_bindings.intake_in]:
-                # make the intake come in
+                # make the intake come 
+                self.logger.info("Grab this jaunt")
                 subsystems.grabber.set_mode(Grabber.GRABBER_IN)
 
             elif is_pressed[robotmap.controller_bindings.intake_out]:
                 # make the intake go out
+                self.logger.info("Ungrab this jaunt")
                 subsystems.grabber.set_mode(Grabber.GRABBER_OUT)
 
             else:

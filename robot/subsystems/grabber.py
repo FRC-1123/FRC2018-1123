@@ -14,7 +14,7 @@ class Grabber(Subsystem):
     """
     GRABBER_IN, GRABBER_OUT, GRABBER_IDLE = range(3)
 
-    def __init_(self):
+    def __init__(self):
         super().__init__("Grabber")
 
         self.left_motor = Relay(robotmap.intake.left_motor, Relay.Direction.kBoth) #Talon(robotmap.intake.left_motor)

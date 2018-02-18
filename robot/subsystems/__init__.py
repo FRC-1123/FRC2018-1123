@@ -19,7 +19,7 @@ def init():
     Creates all subsystems. You must run this before any commands are
     instantiated. Do not run it more than once.
     """
-    global drivetrain, liftmech
+    global drivetrain, liftmech, grabber
 
     drivetrain = DriveTrain()
     liftmech = LiftMech()
