@@ -7,18 +7,33 @@ class PropertySet:
 
 class Buttons:
 	"""
-	Enum for making controller bindings easier
+	Enum for making controller bindings easier.
+	This simply makes the bindings for various actions easier to change, by putting
+	them in this file.
 	"""
 	A, B, Y, X = range(4)
 	# Note, these do not correspond to the actual button ids on the controller
 
 
-## PLACEHOLDER VALUES
 drivetrain = PropertySet()
+## These are CAN ports, PDP is usually 0
 drivetrain.left_front_id = 1
 drivetrain.left_back_id = 2
 drivetrain.right_front_id = 3
 drivetrain.right_back_id = 4
+
+## These values are multiplied by the power values before the motors get set to those
+## speeds. This is used to "manually" fix wheels moving at different speeds; these values
+## were found empirically by running the wheels for one revolution and counting the difference.
+
+## This does not handle when left/right are the same and the robot curves; that will be 
+## handled by the PID system.
+
+## These values should always be LESS THAN 1.0
+drivetrain.left_front_multiplier = 1.0
+drivetrain.left_back_multiplier = 1.0
+drivetrain.right_front_multiplier = 1.0
+drivetrain.right_back_multiplier = 1.0
 
 lift_mech = PropertySet()
 lift_mech.motor = 5

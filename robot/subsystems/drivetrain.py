@@ -22,12 +22,17 @@ class DriveTrain(Subsystem):
         self.right_front_motor = Talon(robotmap.drivetrain.right_front_id)
         self.right_back_motor = Talon(robotmap.drivetrain.right_back_id)
 
-        self.left_front_motor.setInverted(False)
-        self.left_back_motor.setInverted(False)
+        self.left_front_motor.setInverted(True)
+        self.left_back_motor.setInverted(True)
         self.right_front_motor.setInverted(True)
         self.right_back_motor.setInverted(True)
 
-        self.left_controller_group = wpilib.SpeedControllerGroup(self.left_front_motor, self.left_back_motor)
-        self.right_controller_group = wpilib.SpeedControllerGroup(self.right_front_motor, self.right_back_motor)
+        #self.left_controller_group = wpilib.SpeedControllerGroup(self.left_front_motor, self.left_back_motor)
+        #self.right_controller_group = wpilib.SpeedControllerGroup(self.right_front_motor, self.right_back_motor)
 
         self.drive = DifferentialDrive(self.left_controller_group, self.right_controller_group)
+
+    ## This is, to some degree, recreating the method from DifferentialDrive; except that we want to be able
+    ## to apply the manual multipliers from robotmap, which "fix" the front and back motors on a given side
+    ## not going at the same speed.
+    #def tank_drive(self):
