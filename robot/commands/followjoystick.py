@@ -19,7 +19,8 @@ class FollowJoystick(Command):
 
         self.requires(subsystems.drivetrain)
 
-        self.drive = subsystems.drivetrain.drive
+        self.drivetrain = subsystems.drivetrain
+        #self.drive = subsystems.drivetrain.drive
 
         self.sd = NetworkTables.getTable("SmartDashboard")
 		
@@ -33,12 +34,11 @@ class FollowJoystick(Command):
 
             left_power = oi.joystick.getRawAxis(robotmap.joystick.left_y_axis) * 1.0
             right_power = oi.joystick.getRawAxis(robotmap.joystick.right_y_axis) * 1.0
-			
-            #self.logger.info("Joystick should be followed.")
-            ## TODO: make this display live in the dashboard
 
-            self.drive.tankDrive(left_power, right_power)
+            self.drivetrain.tank_drive(left_power, right_power)
+            #self.drive.tankDrive(left_power, right_power)
 
     def end(self):
-        self.drive.tankDrive(0.0, 0.0)
+        self.drivetrain.tank_drive(left_power, right_power)
+        #self.drive.tankDrive(0.0, 0.0)
         #subsystems.drivetrain.robot_drive.setLeftRightMotorOutputs(0, 0)
