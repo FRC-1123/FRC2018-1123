@@ -40,7 +40,7 @@ function onValueChanged(key, value, isNew) {
     // This switch statement chooses which UI element to update when a NetworkTables variable changes.
     switch (key) {
 
-        case '/SmartDashboard/drive/navx/yaw':
+        case '/SmartDashboard/navx/yaw':
             ui.gyro.val = value;
             ui.gyro.visualVal = Math.floor(ui.gyro.val - ui.gyro.offset);
             if (ui.gyro.visualVal < 0) {
@@ -109,7 +109,7 @@ ui.gyro.container.onclick = function() {
     // Store previous gyro val, will now be subtracted from val for callibration
     ui.gyro.offset = ui.gyro.val;
     // Trigger the gyro to recalculate value.
-    updateGyro('/SmartDashboard/drive/navx/yaw', ui.gyro.val);
+    updateGyro('/SmartDashboard/navx/yaw', ui.gyro.val);
 };
 // Update NetworkTables when autonomous selector is changed
 ui.autoSelect.onchange = function() {
