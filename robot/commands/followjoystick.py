@@ -28,12 +28,22 @@ class FollowJoystick(Command):
 
         self.timer = Timer()
         self.timer.start()
+		
+		self.tolerance = 0.15
 
     def execute(self):
         if self.timer.hasPeriodPassed(0.05):
 
             left_power = oi.joystick.getRawAxis(robotmap.joystick.left_y_axis) * 1.0
             right_power = oi.joystick.getRawAxis(robotmap.joystick.right_y_axis) * 1.0
+			
+            ## If we're within the tolerance, we assume driver means to straight, and
+            ## correct to whichever has the largest magnitudes
+            if abs(left_power - right_power) < self.tolerance:
+                if abs(left_power) > abs(right_power):
+                    right_power = left_power
+                elif abs(right_power) > abs(left_power):
+                    left_power = right_power
 
             self.drivetrain.tank_drive(left_power, right_power)
             #self.drive.tankDrive(left_power, right_power)
