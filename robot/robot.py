@@ -18,6 +18,7 @@ class Robot(CommandBasedRobot):
 
         self.logger = logging.getLogger("robot")	
         self.sd = NetworkTables.getTable("SmartDashboard")
+        self.sd.putBoolean("testerino", True)
         self.ds = wpilib.DriverStation.getInstance()
         self.game_data = ""
         

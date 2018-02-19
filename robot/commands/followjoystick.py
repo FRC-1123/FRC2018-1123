@@ -29,7 +29,7 @@ class FollowJoystick(Command):
         self.timer = Timer()
         self.timer.start()
 		
-		self.tolerance = 0.15
+        self.tolerance = 0.15
 
     def execute(self):
         if self.timer.hasPeriodPassed(0.05):

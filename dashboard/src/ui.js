@@ -36,11 +36,18 @@ function onValueChanged(key, value, isNew) {
     } else if (value == 'false') {
         value = false;
     }
+    
+    console.log('value is being changed!');
+    
+    var nodeConsole = require('console');
+    var myConsole = new nodeConsole.Console(process.stdout, process.stderr);
+    myConsole.log('value is being changed! (2)');
+    myConsole.log('the key is ' + key + ' and the value is ' + value);
 
     // This switch statement chooses which UI element to update when a NetworkTables variable changes.
     switch (key) {
 
-        case '/SmartDashboard/navx/yaw':
+        case '/SmartDashboard/navX/yaw':
             ui.gyro.val = value;
             ui.gyro.visualVal = Math.floor(ui.gyro.val - ui.gyro.offset);
             if (ui.gyro.visualVal < 0) {
@@ -104,12 +111,16 @@ function onValueChanged(key, value, isNew) {
     }
 }
 
+ui.forwardCommand.button.onclick = function() {
+    NetworkTables.putValue('/SmartDashboard/forwardCommand', true);
+};
+
 // Reset gyro value to 0 on click
 ui.gyro.container.onclick = function() {
     // Store previous gyro val, will now be subtracted from val for callibration
     ui.gyro.offset = ui.gyro.val;
     // Trigger the gyro to recalculate value.
-    updateGyro('/SmartDashboard/navx/yaw', ui.gyro.val);
+    updateGyro('/SmartDashboard/navX/yaw', ui.gyro.val);
 };
 // Update NetworkTables when autonomous selector is changed
 ui.autoSelect.onchange = function() {

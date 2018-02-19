@@ -25,8 +25,8 @@ class DriveTrain(Subsystem):
 
         self.left_front_motor.setInverted(True)
         self.left_back_motor.setInverted(True)
-        self.right_front_motor.setInverted(True)
-        self.right_back_motor.setInverted(True)
+        self.right_front_motor.setInverted(False)
+        self.right_back_motor.setInverted(False)
 
         #self.left_controller_group = wpilib.SpeedControllerGroup(self.left_front_motor, self.left_back_motor)
         #self.right_controller_group = wpilib.SpeedControllerGroup(self.right_front_motor, self.right_back_motor)
@@ -37,8 +37,8 @@ class DriveTrain(Subsystem):
     ## to apply the manual multipliers from robotmap, which "fix" the front and back motors on a given side
     ## not going at the same speed.
     def tank_drive(self, left_speed, right_speed, squared=True):
-        left_speed = apply_deadband(limit(left_speed))
-        right_speed = apply_deadband(limit(right_speed))
+        left_speed = self.apply_deadband(self.limit(left_speed))
+        right_speed = self.apply_deadband(self.limit(right_speed))
 
         if squared:
             left_speed = math.copysign(left_speed ** 2, left_speed)
@@ -52,7 +52,7 @@ class DriveTrain(Subsystem):
 
 
     ## Basically straight from RobotDriveBase, just for recreating locally with custom multipliers
-    def apply_deadband(value, deadband=0.05):
+    def apply_deadband(self, value, deadband=0.05):
         if abs(value) > deadband:
             if value < 0.0:
                 return (value - deadband) / (1.0 - deadband)
@@ -61,7 +61,7 @@ class DriveTrain(Subsystem):
         else:
             return 0.0
 
-    def limit(value):
+    def limit(self, value):
         if value > 1.0:
             return 1.0
         elif value < -1.0:
