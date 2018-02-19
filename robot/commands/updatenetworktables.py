@@ -2,6 +2,8 @@ import wpilib
 from networktables import NetworkTables
 from wpilib.command import Command
 
+from inputs import navx
+
 import subsystems
 
 class UpdateNetworkTables(Command):
@@ -22,3 +24,8 @@ class UpdateNetworkTables(Command):
                 self.sd.putBoolean("forwardCommand", False) # set button back 
                 DriveForward(0.5, 2).start()
                 #self.logger.info("Moving forward at half power for one second.")
+
+            # update navx status
+            self.sd.putBoolean('navX/isConnected', navx.ahrs.isConnected())
+            self.sd.putBoolean('navX/isCalibrating', navx.ahrs.isCalibrating())
+            self.sd.putNumber('navX/yaw', navx.ahrs.getFusedHeading())
