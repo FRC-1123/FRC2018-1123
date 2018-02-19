@@ -45,6 +45,9 @@ class FollowJoystick(Command):
                 elif abs(right_power) > abs(left_power):
                     left_power = right_power
 
+            self.sd.putNumber("controller/leftPower", left_power)
+            self.sd.putNumber("controller/rightPower", right_power)
+            
             self.drivetrain.tank_drive(left_power, right_power)
             #self.drive.tankDrive(left_power, right_power)
 

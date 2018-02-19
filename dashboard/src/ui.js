@@ -20,6 +20,10 @@ let ui = {
         button: document.getElementById('example-button'),
         readout: document.getElementById('example-readout').firstChild
     },
+    drivetrain: {
+        leftPower: document.getElementById('drivetrain-left-bar'),
+        rightPower: document.getElementById('drivetrain-right-bar')
+    },
     autoSelect: document.getElementById('auto-select'),
     armPosition: document.getElementById('arm-position')
 };
@@ -28,6 +32,30 @@ let ui = {
 // NetworkTables.addRobotConnectionListener(onRobotConnection, true);
 // Sets function to be called when any NetworkTables key/value changes
 NetworkTables.addGlobalListener(onValueChanged, true);
+
+function updateLeftPower(value) {
+    if(value < 0.0) {
+        var depth = Math.trunc(value*-90.0)
+        ui.drivetrain.leftPower.setAttribute("y","105");
+        ui.drivetrain.leftPower.setAttribute("height",String(depth));
+    } else {
+        var depth = Math.trunc(value*90.0)
+        ui.drivetrain.leftPower.setAttribute("y",String(105-depth));
+        ui.drivetrain.leftPower.setAttribute("height",String(depth));
+    }
+}
+
+function updateRightPower(value) {
+    if(value < 0.0) {
+        var depth = Math.trunc(value*-90.0)
+        ui.drivetrain.rightPower.setAttribute("y","105");
+        ui.drivetrain.rightPower.setAttribute("height",String(depth));
+    } else {
+        var depth = Math.trunc(value*90.0)
+        ui.drivetrain.rightPower.setAttribute("y",String(105-depth));
+        ui.drivetrain.rightPower.setAttribute("height",String(depth));
+    }
+}
 
 function onValueChanged(key, value, isNew) {
     // Sometimes, NetworkTables will pass booleans as strings. This corrects for that.
@@ -46,6 +74,15 @@ function onValueChanged(key, value, isNew) {
 
     // This switch statement chooses which UI element to update when a NetworkTables variable changes.
     switch (key) {
+
+        case '/SmartDashboard/controller/leftPower':
+            updateLeftPower(value);
+            myConsole.log('left power should be changing');
+            break;
+
+        case '/SmartDashboard/controller/rightPower':
+            updateRightPower(value);
+            break;
 
         case '/SmartDashboard/navX/yaw':
             ui.gyro.val = value;
