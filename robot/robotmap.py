@@ -31,9 +31,9 @@ drivetrain.right_back_id = 4
 
 ## These values should always be LESS THAN 1.0
 drivetrain.left_front_multiplier = 1.0
-drivetrain.left_back_multiplier = 1.0
+drivetrain.left_back_multiplier = 0.95
 drivetrain.right_front_multiplier = 1.0
-drivetrain.right_back_multiplier = 1.0
+drivetrain.right_back_multiplier = 0.9
 
 lift_mech = PropertySet()
 lift_mech.motor = 5
