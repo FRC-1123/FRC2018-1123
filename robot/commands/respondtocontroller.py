@@ -46,12 +46,12 @@ class RespondToController(Command):
 
             if is_pressed[robotmap.controller_bindings.intake_in]:
                 # make the intake come 
-                self.logger.info("Grab this jaunt")
+                self.logger.info("Currently Grabbing IN")
                 subsystems.grabber.set_mode(Grabber.GRABBER_IN)
 
             elif is_pressed[robotmap.controller_bindings.intake_out]:
                 # make the intake go out
-                self.logger.info("Ungrab this jaunt")
+                self.logger.info("Currently Grabbing OUT")
                 subsystems.grabber.set_mode(Grabber.GRABBER_OUT)
 
             else:
