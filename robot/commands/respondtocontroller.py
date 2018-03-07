@@ -41,9 +41,9 @@ class RespondToController(Command):
 
             if oi.controller.getBumper(GenericHID.Hand.kLeft) and robotmap.debug.is_set:
                 self.logger.info("Running debug system...")
-                subsystems.debugsystem.set(robotmap.debug.power)
+                subsystems.debugsystem.my_motor.set(robotmap.debug.power)
             else:
-                subsystems.debugsystem.set(0.0)
+                subsystems.debugsystem.my_motor.set(0.0)
 
             if is_pressed[robotmap.controller_bindings.lift_raise]:
                 # raise the lift

@@ -36,11 +36,11 @@ drivetrain.right_front_multiplier = 1.0
 drivetrain.right_back_multiplier = 0.9
 
 lift_mech = PropertySet()
-lift_mech.motor = 5
+lift_mech.motor = 6
 
 intake = PropertySet()
-intake.left_motor = 0
-intake.right_motor = 1
+intake.left_motor = 5
+intake.right_motor = 7
 
 cameras = PropertySet()
 
