@@ -12,7 +12,7 @@ class AutonomousProgram(CommandGroup):
     def __init__(self):
         super().__init__("Autonomous Program")
 
-        self.addSequential()
+        #self.addSequential()
 
         self.sd = NetworkTables.getTable("SmartDashboard")
 
