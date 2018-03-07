@@ -76,12 +76,12 @@ function onValueChanged(key, value, isNew) {
     switch (key) {
 
         case '/SmartDashboard/controller/leftPower':
-            updateLeftPower(value);
+            updateLeftPower(-value);
             myConsole.log('left power should be changing');
             break;
 
         case '/SmartDashboard/controller/rightPower':
-            updateRightPower(value);
+            updateRightPower(-value);
             break;
 
         case '/SmartDashboard/navX/yaw':
