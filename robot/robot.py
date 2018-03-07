@@ -6,6 +6,7 @@ from commandbased import CommandBasedRobot
 from commands.respondtocontroller import RespondToController
 from commands.updatenetworktables import UpdateNetworkTables
 from commands.followjoystick import FollowJoystick
+from commands.autonomousprogram import AutonomousProgram
 from networktables import NetworkTables
 from inputs import oi, navx
 
@@ -27,6 +28,8 @@ class Robot(CommandBasedRobot):
 
     def autonomousInit(self):
         self.game_data = self.ds.getGameSpecificMessage()
+        self.logger.info("Starting autonomous, game data is " + str(self.game_data))
+        AutonomousProgram().start()
 
     def teleopInit(self):
         self.logger.info("Teleop starting here!")
