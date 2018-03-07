@@ -54,6 +54,11 @@ controller = PropertySet()
 controller.port = 0
 controller.joystick = joystick
 
+debug = PropertySet()
+debug.is_set = True
+debug.port = 10
+debug.power = 0.5
+
 controller_bindings = PropertySet()
 controller_bindings.intake_in = Buttons.A
 controller_bindings.intake_out = Buttons.B
