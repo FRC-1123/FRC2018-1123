@@ -40,25 +40,32 @@ class RespondToController(Command):
             is_pressed[robotmap.Buttons.Y] = oi.controller.getYButton()
 
             if robotmap.debug.is_set:
-                if oi.controller.getBumper(GenericHID.Hand.kLeft) and robotmap.debug.is_set:
+                if oi.controller.getBackButton():
                     self.logger.info("Running debug system...")
                     subsystems.debugsystem.my_motor.set(robotmap.debug.power)
                 else:
                     subsystems.debugsystem.my_motor.set(0.0)
 
+
             ## LIFTER LOGIC
 
             if is_pressed[robotmap.controller_bindings.lift_raise]:
                 # raise the lift
-                subsystems.liftmech.set_lift_speed(robotmap.lift_mech.power)
-                pass
+                if robotmap.lift_mech.slowable and oi.controller.getBackButton():
+                    subsystems.liftmech.set_lift_speed(robotmap.lift_mech.power/4.0)
+                else:
+                    subsystems.liftmech.set_lift_speed(robotmap.lift_mech.power)
+
             elif is_pressed[robotmap.controller_bindings.lift_lower]:
                 # lower the lift
-                subsystems.liftmech.set_lift_speed(-robotmap.lift_mech.power)
-                pass
+                if robotmap.lift_mech.slowable and oi.controller.getBackButton():
+                    subsystems.liftmech.set_lift_speed(-robotmap.lift_mech.power/4.0)
+                else:
+                    subsystems.liftmech.set_lift_speed(-robotmap.lift_mech.power)
             else:
                 # turn off lift
                 subsystems.liftmech.set_lift_speed(0.0)
+
 
             ## GRABBER LOGIC
 
@@ -75,3 +82,16 @@ class RespondToController(Command):
             else:
                 # turn off intake
                 subsystems.grabber.set_mode(Grabber.GRABBER_IDLE)
+
+
+            ## CLIMBER LOGIC
+
+            if oi.controller.getBumper(GenericHID.Hand.kLeft):
+                subsystems.climbmech.motor_a.set(robotmap.climb_mech.speed)
+                subsystems.climbmech.motor_b.set(robotmap.climb_mech.speed)
+            elif oi.controller.getBumper(GenericHID.Hand.kRight):
+                subsystems.climbmech.motor_a.set(-robotmap.climb_mech.speed)
+                subsystems.climbmech.motor_b.set(-robotmap.climb_mech.speed)
+            else:
+                subsystems.climbmech.motor_a.set(0.0)
+                subsystems.climbmech.motor_b.set(0.0)

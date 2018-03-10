@@ -16,13 +16,13 @@ class LiftMech(Subsystem):
     def __init_(self):
         super().__init__("LiftMech")
 
-        self.motor_a = Talon(robotmap.lift_mech.motor_a)
-        self.motor_b = Talon(robotmap.lift_mech.motor_b)
+        self.motor = Talon(robotmap.lift_mech.motor)
+        #self.motor_b = Talon(robotmap.lift_mech.motor_b)
         
-        self.motor_a.setInverted(False)
-        self.motor_b.setInverted(False)
+        self.motor.setInverted(False)
+        #self.motor_b.setInverted(False)
 
 
-    def set_lift_speed(self, grab_speed):
-        self.motor_a.set(grab_speed)
-        self.motor_b.set(grab_speed)
+    def set_lift_speed(self, lift_speed):
+        self.motor.set(lift_speed)
+        #self.motor_b.set(grab_speed)

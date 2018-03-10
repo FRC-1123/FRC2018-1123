@@ -36,8 +36,7 @@ drivetrain.right_front_multiplier = 1.0
 drivetrain.right_back_multiplier = 0.9
 
 lift_mech = PropertySet()
-lift_mech.motor_a = 6
-lift_mech.motor_b = 10
+lift_mech.motor = 6
 lift_mech.power = 1.0
 
 climb_mech = PropertySet()

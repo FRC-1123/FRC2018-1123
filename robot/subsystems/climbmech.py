@@ -17,6 +17,8 @@ class ClimbMech(Subsystem):
     def __init_(self):
         super().__init__("ClimbMech")
 
-        self.motor = Talon(robotmap.climb_mech.motor)
+        self.motor_a = Talon(robotmap.climb_mech.motor_a)
+        self.motor_b = Talon(robotmap.climb_mech.motor_b)
         
-        self.motor.setInverted(False)
+        self.motor_a.setInverted(False)
+        self.motor_b.setInverted(True)
