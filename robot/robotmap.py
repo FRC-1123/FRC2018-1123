@@ -36,7 +36,14 @@ drivetrain.right_front_multiplier = 1.0
 drivetrain.right_back_multiplier = 0.9
 
 lift_mech = PropertySet()
-lift_mech.motor = 6
+lift_mech.motor_a = 6
+lift_mech.motor_b = 10
+lift_mech.power = 1.0
+
+climb_mech = PropertySet()
+climb_mech.motor_a = 8
+climb_mech.motor_b = 9
+climb_mech.speed = 0.5
 
 intake = PropertySet()
 intake.left_motor = 5
@@ -56,7 +63,7 @@ controller.joystick = joystick
 
 debug = PropertySet()
 debug.is_set = True
-debug.port = 10
+debug.port = 18
 debug.power = 0.5
 
 controller_bindings = PropertySet()

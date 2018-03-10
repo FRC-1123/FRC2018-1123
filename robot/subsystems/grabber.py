@@ -21,7 +21,7 @@ class Grabber(Subsystem):
         self.right_motor = Talon(robotmap.intake.right_motor)
 
         self.left_motor.setInverted(False)
-        self.left_motor.setInverted(True)
+        self.right_motor.setInverted(True)
 
     ## For legacy purposes; if this method is used, will just go at 60% speed
     def set_mode(self, grab_mode):

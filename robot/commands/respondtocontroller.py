@@ -39,18 +39,28 @@ class RespondToController(Command):
             is_pressed[robotmap.Buttons.X] = oi.controller.getXButton()
             is_pressed[robotmap.Buttons.Y] = oi.controller.getYButton()
 
-            if oi.controller.getBumper(GenericHID.Hand.kLeft) and robotmap.debug.is_set:
-                self.logger.info("Running debug system...")
-                subsystems.debugsystem.my_motor.set(robotmap.debug.power)
-            else:
-                subsystems.debugsystem.my_motor.set(0.0)
+            if robotmap.debug.is_set:
+                if oi.controller.getBumper(GenericHID.Hand.kLeft) and robotmap.debug.is_set:
+                    self.logger.info("Running debug system...")
+                    subsystems.debugsystem.my_motor.set(robotmap.debug.power)
+                else:
+                    subsystems.debugsystem.my_motor.set(0.0)
+
+            ## LIFTER LOGIC
 
             if is_pressed[robotmap.controller_bindings.lift_raise]:
                 # raise the lift
+                subsystems.liftmech.set_lift_speed(robotmap.lift_mech.power)
                 pass
             elif is_pressed[robotmap.controller_bindings.lift_lower]:
                 # lower the lift
+                subsystems.liftmech.set_lift_speed(-robotmap.lift_mech.power)
                 pass
+            else:
+                # turn off lift
+                subsystems.liftmech.set_lift_speed(0.0)
+
+            ## GRABBER LOGIC
 
             if is_pressed[robotmap.controller_bindings.intake_in]:
                 # make the intake come 

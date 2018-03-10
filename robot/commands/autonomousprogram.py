@@ -16,8 +16,10 @@ class AutonomousProgram(CommandGroup):
 
         self.sd = NetworkTables.getTable("SmartDashboard")
 
-        self.addSequential(SetForwardSpeed(0.5, 1.0, False))
-        self.addSequential(SetSpeeds(0.1, 0.7, 0.2, False))
-        self.addSequential(SetForwardSpeed(0.5, 0.3, False))
-        self.addSequential(SetSpeeds(0.7, 0.1, 0.2, False))
+        #self.addSequential(SetForwardSpeed(0.5, 1.0, False))
+        #self.addSequential(SetSpeeds(0.1, 0.7, 0.2, False))
+        #self.addSequential(SetForwardSpeed(0.5, 0.3, False))
+        #self.addSequential(SetSpeeds(0.7, 0.1, 0.2, False))
+        self.addSequential(SetForwardSpeed(0.5, 5.0, False))
+
         #self.addSequential(DriveForward(0.4, 3.0))

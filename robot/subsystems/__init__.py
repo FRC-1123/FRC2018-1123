@@ -5,6 +5,7 @@ for it in the global scope.
 """
 
 from wpilib.robotbase import RobotBase
+import robotmap
 from .drivetrain import DriveTrain
 from .liftmech import LiftMech
 from .grabber import Grabber
@@ -28,6 +29,7 @@ def init():
     liftmech = LiftMech()
     grabber = Grabber()
     climbmech = ClimbMech()
-    debugsystem = DebugSystem()
+    if robotmap.debug.is_set:
+        debugsystem = DebugSystem()
 
     # initialize the subsystems here
