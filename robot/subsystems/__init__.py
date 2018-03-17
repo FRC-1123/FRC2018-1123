@@ -11,24 +11,27 @@ from .liftmech import LiftMech
 from .grabber import Grabber
 from .climbmech import ClimbMech
 from .debugsystem import DebugSystem
+from .pistons import Pistons
 
 drivetrain = None
 liftmech = None
 grabber = None
 climbmech = None
 debugsystem = None
+pistons = None
 
 def init():
     """
     Creates all subsystems. You must run this before any commands are
     instantiated. Do not run it more than once.
     """
-    global drivetrain, liftmech, grabber, climbmech, debugsystem
+    global drivetrain, liftmech, grabber, climbmech, debugsystem, pistons
 
     drivetrain = DriveTrain()
     liftmech = LiftMech()
     grabber = Grabber()
     climbmech = ClimbMech()
+    pistons = Pistons()
     if robotmap.debug.is_set:
         debugsystem = DebugSystem()
 

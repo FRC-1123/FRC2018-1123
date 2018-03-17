@@ -37,8 +37,8 @@ drivetrain.right_back_multiplier = 0.9
 
 lift_mech = PropertySet()
 lift_mech.motor = 6
+lift_mech.power = 1.0
 lift_mech.slowable = True
-lift_mech.power = 0.8
 
 autonomous = PropertySet()
 autonomous.mode = 0
@@ -65,10 +65,22 @@ controller = PropertySet()
 controller.port = 0
 controller.joystick = joystick
 
+## This was only temporarily used for running a single
+## talon's motor for testing purposes
 debug = PropertySet()
 debug.is_set = False
 debug.port = 18
 debug.power = 0.5
+
+pistons = PropertySet()
+pistons.piston1_forward = 1001
+pistons.piston1_reverse = 1002
+pistons.piston2_forward = 1003
+pistons.piston2_reverse = 1004
+pistons.piston3_forward = 1005
+pistons.piston3_reverse = 1006
+pistons.piston4_forward = 1007
+pistons.piston4_reverse = 1008
 
 controller_bindings = PropertySet()
 controller_bindings.intake_in = Buttons.A
