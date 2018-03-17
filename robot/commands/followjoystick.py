@@ -48,10 +48,14 @@ class FollowJoystick(Command):
             self.sd.putNumber("controller/leftPower", left_power)
             self.sd.putNumber("controller/rightPower", right_power)
             
+            if robotmap.joystick.inverted:
+                left_power *= -1.0
+                right_power *= -1.0
+            
             self.drivetrain.tank_drive(left_power, right_power)
             #self.drive.tankDrive(left_power, right_power)
 
     def end(self):
-        self.drivetrain.tank_drive(left_power, right_power)
+        self.drivetrain.tank_drive(0.0, 0.0)
         #self.drive.tankDrive(0.0, 0.0)
         #subsystems.drivetrain.robot_drive.setLeftRightMotorOutputs(0, 0)

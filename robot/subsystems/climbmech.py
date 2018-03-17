@@ -14,7 +14,7 @@ class ClimbMech(Subsystem):
     opposite directions.
     """
 
-    def __init_(self):
+    def __init__(self):
         super().__init__("ClimbMech")
 
         self.motor_a = Talon(robotmap.climb_mech.motor_a)

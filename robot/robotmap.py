@@ -37,16 +37,20 @@ drivetrain.right_back_multiplier = 0.9
 
 lift_mech = PropertySet()
 lift_mech.motor = 6
-lift_mech.power = 1.0
+lift_mech.slowable = True
+lift_mech.power = 0.8
+
+autonomous = PropertySet()
+autonomous.mode = 0
 
 climb_mech = PropertySet()
-climb_mech.motor_a = 8
-climb_mech.motor_b = 9
+climb_mech.motor_a = 10
+climb_mech.motor_b = 7
 climb_mech.speed = 0.5
 
 intake = PropertySet()
 intake.left_motor = 5
-intake.right_motor = 7
+intake.right_motor = 9
 
 cameras = PropertySet()
 
@@ -55,13 +59,14 @@ joystick.left_x_axis = 0
 joystick.left_y_axis = 1
 joystick.right_x_axis = 2
 joystick.right_y_axis = 3
+joystick.inverted = False
 
 controller = PropertySet()
 controller.port = 0
 controller.joystick = joystick
 
 debug = PropertySet()
-debug.is_set = True
+debug.is_set = False
 debug.port = 18
 debug.power = 0.5
 

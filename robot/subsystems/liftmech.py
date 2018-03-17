@@ -13,7 +13,7 @@ class LiftMech(Subsystem):
     opposite directions.
     """
 
-    def __init_(self):
+    def __init__(self):
         super().__init__("LiftMech")
 
         self.motor = Talon(robotmap.lift_mech.motor)

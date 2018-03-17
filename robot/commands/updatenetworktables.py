@@ -33,4 +33,4 @@ class UpdateNetworkTables(Command):
             self.sd.putBoolean('navX/isConnected', navx.ahrs.isConnected())
             self.sd.putBoolean('navX/isCalibrating', navx.ahrs.isCalibrating())
             self.sd.putNumber('navX/yaw', navx.ahrs.getFusedHeading())
-            self.logger.info("NavX Yaw should be " + str(navx.ahrs.getFusedHeading()))
+            #self.logger.info("NavX Yaw should be " + str(navx.ahrs.getFusedHeading()))

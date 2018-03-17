@@ -18,7 +18,10 @@ class RespondToController(Command):
         super().__init__("Respond to Controller")
 
         self.requires(subsystems.grabber)
-        self.requires(subsystems.debugsystem)
+        self.requires(subsystems.liftmech)
+        self.requires(subsystems.climbmech)
+        if(robotmap.debug.is_set):
+            self.requires(subsystems.debugsystem)
         #self.requires(subsystems.liftmech)
 
         #self.sd = NetworkTables.getTable("SmartDashboard")
@@ -27,6 +30,8 @@ class RespondToController(Command):
         #oi.start_btn.whenPressed(SwitchCamera())
 
         self.timer = Timer()
+        
+        self.intake_state = 0
  
     def initialize(self):
         self.timer.start()
@@ -34,11 +39,14 @@ class RespondToController(Command):
     def execute(self):
         if self.timer.hasPeriodPassed(0.05):
             is_pressed = {}
-            is_pressed[robotmap.Buttons.A] = oi.controller.getAButton()
-            is_pressed[robotmap.Buttons.B] = oi.controller.getBButton()
+            is_pressed[robotmap.Buttons.A] = oi.controller.getAButtonPressed()
+            is_pressed[robotmap.Buttons.B] = oi.controller.getBButtonPressed()
             is_pressed[robotmap.Buttons.X] = oi.controller.getXButton()
             is_pressed[robotmap.Buttons.Y] = oi.controller.getYButton()
-
+            
+            if oi.controller.getBackButton():
+                self.logger.info("Back button is being held!")
+                
             if robotmap.debug.is_set:
                 if oi.controller.getBackButton():
                     self.logger.info("Running debug system...")
@@ -52,14 +60,14 @@ class RespondToController(Command):
             if is_pressed[robotmap.controller_bindings.lift_raise]:
                 # raise the lift
                 if robotmap.lift_mech.slowable and oi.controller.getBackButton():
-                    subsystems.liftmech.set_lift_speed(robotmap.lift_mech.power/4.0)
+                    subsystems.liftmech.set_lift_speed(robotmap.lift_mech.power/3.0)
                 else:
                     subsystems.liftmech.set_lift_speed(robotmap.lift_mech.power)
 
             elif is_pressed[robotmap.controller_bindings.lift_lower]:
                 # lower the lift
                 if robotmap.lift_mech.slowable and oi.controller.getBackButton():
-                    subsystems.liftmech.set_lift_speed(-robotmap.lift_mech.power/4.0)
+                    subsystems.liftmech.set_lift_speed(-robotmap.lift_mech.power/3.0)
                 else:
                     subsystems.liftmech.set_lift_speed(-robotmap.lift_mech.power)
             else:
@@ -68,13 +76,24 @@ class RespondToController(Command):
 
 
             ## GRABBER LOGIC
-
+            
             if is_pressed[robotmap.controller_bindings.intake_in]:
+                if self.intake_state != 1:
+                    self.intake_state = 1 # means IN
+                else:
+                    self.intake_state = 0
+            elif is_pressed[robotmap.controller_bindings.intake_out]:
+                if self.intake_state != 2:
+                    self.intake_state = 2
+                else:
+                    self.intake_state = 0
+
+            if self.intake_state == 1:
                 # make the intake come 
                 self.logger.info("Currently Grabbing IN")
                 subsystems.grabber.set_mode(Grabber.GRABBER_IN)
 
-            elif is_pressed[robotmap.controller_bindings.intake_out]:
+            elif self.intake_state == 2:
                 # make the intake go out
                 self.logger.info("Currently Grabbing OUT")
                 subsystems.grabber.set_mode(Grabber.GRABBER_OUT)
@@ -83,6 +102,10 @@ class RespondToController(Command):
                 # turn off intake
                 subsystems.grabber.set_mode(Grabber.GRABBER_IDLE)
 
+                
+            ## Patrick likes inverted controls, so here he goes
+            if oi.controller.getStartButtonPressed():
+                robotmap.joystick.inverted = not robotmap.joystick.inverted
 
             ## CLIMBER LOGIC
 
