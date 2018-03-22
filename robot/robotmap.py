@@ -11,8 +11,10 @@ class Buttons:
 	This simply makes the bindings for various actions easier to change, by putting
 	them in this file.
 	"""
-	A, B, Y, X = range(4)
-	# Note, these do not correspond to the actual button ids on the controller
+	_, X, A, B, Y, LB, RB, LT, RT = range(9)
+
+	values = [X, A, B, Y, LB, RB, LT, RT]
+	# These correspond to the actual button ID's on the Logitech Controller
 
 
 drivetrain = PropertySet()
@@ -35,22 +37,22 @@ drivetrain.left_back_multiplier = 0.95
 drivetrain.right_front_multiplier = 1.0
 drivetrain.right_back_multiplier = 0.9
 
-lift_mech = PropertySet()
-lift_mech.motor = 6
-lift_mech.power = 1.0
-lift_mech.slowable = True
+#lift_mech = PropertySet()
+#lift_mech.motor = 6
+#lift_mech.power = 1.0
+#lift_mech.slowable = True
 
 autonomous = PropertySet()
 autonomous.mode = 0
 
 climb_mech = PropertySet()
-climb_mech.motor_a = 10
-climb_mech.motor_b = 7
+climb_mech.motor_a = 5
+climb_mech.motor_b = 6
 climb_mech.speed = 0.5
 
-intake = PropertySet()
-intake.left_motor = 5
-intake.right_motor = 9
+#intake = PropertySet()
+#intake.left_motor = 5
+#intake.right_motor = 9
 
 cameras = PropertySet()
 
@@ -73,18 +75,27 @@ debug.port = 18
 debug.power = 0.5
 
 pistons = PropertySet()
+
+## Raising piston
 pistons.piston1_forward = 1001
 pistons.piston1_reverse = 1002
+
+## Pushing things
 pistons.piston2_forward = 1003
 pistons.piston2_reverse = 1004
 pistons.piston3_forward = 1005
 pistons.piston3_reverse = 1006
+
+## This one is used for lifting the thing
 pistons.piston4_forward = 1007
 pistons.piston4_reverse = 1008
 
+
 controller_bindings = PropertySet()
-controller_bindings.intake_in = Buttons.A
-controller_bindings.intake_out = Buttons.B
-controller_bindings.lift_raise = Buttons.X
-controller_bindings.lift_lower = Buttons.Y
-# redundant reference, but makes it a little more clear
+
+controller_bindings.pistonlift_up = Buttons.X
+controller_bindings.pistonlift_down = Buttons.Y
+
+controller_bindings.control_lift_pan = Buttons.A # Toggle
+
+controller_bindings.control_pushers = Buttons.B

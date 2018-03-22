@@ -1,8 +1,10 @@
 import ctre
 import wpilib
+
 from networktables import NetworkTables
 from wpilib.command.subsystem import Subsystem
 from ctre.wpi_talonsrx import WPI_TalonSRX as Talon
+
 from wpilib.drive import DifferentialDrive
 from wpilib import DoubleSolenoid
 

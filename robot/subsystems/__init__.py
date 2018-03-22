@@ -7,15 +7,15 @@ for it in the global scope.
 from wpilib.robotbase import RobotBase
 import robotmap
 from .drivetrain import DriveTrain
-from .liftmech import LiftMech
-from .grabber import Grabber
+#from .liftmech import LiftMech
+#from .grabber import Grabber
 from .climbmech import ClimbMech
 from .debugsystem import DebugSystem
 from .pistons import Pistons
 
 drivetrain = None
-liftmech = None
-grabber = None
+#liftmech = None
+#grabber = None
 climbmech = None
 debugsystem = None
 pistons = None
