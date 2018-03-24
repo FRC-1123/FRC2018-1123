@@ -64,8 +64,10 @@ class RespondToController(Command):
                 ## Toggle the lift pan status
                 if self.lift_pan_status: #lower them
                     subsystems.pistons.piston1.set(DoubleSolenoid.Value.kReverse)
+                    self.lift_pan_status = False
                 else:
                     subsystems.pistons.piston1.set(DoubleSolenoid.Value.kForward)
+                    self.lift_pan_status = True
 
             if oi.controller.getRawButtonPressed(robotmap.controller_bindings.control_pushers):
                 # push out
