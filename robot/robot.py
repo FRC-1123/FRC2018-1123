@@ -29,7 +29,7 @@ class Robot(CommandBasedRobot):
     def autonomousInit(self):
         self.game_data = self.ds.getGameSpecificMessage()
         self.logger.info("Starting autonomous, game data is " + str(self.game_data))
-        AutonomousProgram().start()
+        AutonomousProgram(self.game_data).start()
 
     def teleopInit(self):
         self.logger.info("Teleop starting here!")
