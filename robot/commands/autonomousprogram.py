@@ -9,6 +9,7 @@ from commands.turnleft90 import TurnLeft90
 from commands.dumpblock import DumpBlock
 
 import robotmap
+import logging
 
 import subsystems
 
