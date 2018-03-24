@@ -8,10 +8,10 @@ import subsystems
 
 class DumpBlock(InstantCommand):
     """
-    Drives forward at the given power for a given duration.
+    Dumps the block
     """
 
-    def __init__(self, power):
+    def __init__(self):
         super().__init__('Dump Block')
         self.requires(subsystems.pistons)
         self.timer = wpilib.Timer()
